@@ -9,8 +9,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url('user-bg.jpg') center/cover no-repeat,
-                  url('user-bg.jpg.JPG') center/cover no-repeat,
+      background: url('user-bg.JPG') center/cover no-repeat,
                   url('sfondo-mare.png') center/cover no-repeat;
       background-attachment: fixed;
     }
@@ -23,12 +22,13 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 20px;
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(6px);
+      background: #b3e5fc; /* azzurro mare chiaro */
+      border-bottom: 1px solid rgba(0,0,0,0.1);
     }
     .brand {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 20px;
+      color: #0c4a6e; /* blu mare più scuro per contrasto */
     }
     .navlinks {
       display: flex;
@@ -37,14 +37,14 @@
     }
     .navlinks a {
       text-decoration: none;
-      color: #1e293b;
+      color: #0c4a6e;
       font-weight: 600;
       padding: 6px 10px;
       border-radius: 6px;
       transition: background 0.2s;
     }
     .navlinks a:hover {
-      background: rgba(14,165,233,0.15);
+      background: rgba(255,255,255,0.3);
     }
     /* HERO */
     .hero {
@@ -69,7 +69,7 @@
 <body>
   <!-- NAVBAR -->
   <nav>
-    <div class="brand">Elpidio & Cecilia</div>
+    <div class="brand">E&amp;C</div>
     <div class="navlinks">
       <a href="#cerimonia">Cerimonia</a>
       <a href="#ricevimento">Ricevimento</a>
