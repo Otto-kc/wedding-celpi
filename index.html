@@ -1,278 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Elpidio & Cecilia — Wedding</title>
-    <meta name="description" content="Sito del matrimonio di Elpidio & Cecilia" />
-    <!-- Richiesta: non indicizzare -->
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="googlebot" content="noindex, nofollow, noimageindex, noarchive" />
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
-    <style>
-      :root {
-        --electric-blue: #0077ff;
-        --neon-coral: #ff3e6c;
-        --text-on-bright: #ffffff;
-        --border: rgba(255, 255, 255, 0.35);
-        --card-bg: rgba(255, 255, 255, 0.10);
-        --shadow: 0 20px 60px rgba(0,0,0,0.35);
-      }
-
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      html, body { height: 100%; margin: 0; }
-
-      /* BACKGROUND LAYERS
-         1) Gradiente animato (tinta blu/corallo semitrasparente per leggibilità)
-         2) user-bg.jpg  (foto che caricherai tu)
-         3) sfondo-mare.png (immagine blu/corallo che avevamo scelto)
-         Puoi sostituire 'user-bg.jpg' con il nome reale del tuo file, oppure caricare un'immagine
-         con quel nome nella root del repository per non toccare il codice.
-      */
-      body {
-        color: var(--text-on-bright);
-        font-family: 'Montserrat', system-ui, sans-serif;
-        background-image:
-          linear-gradient(120deg, rgba(0,119,255,.45), rgba(255,62,108,.40), rgba(0,119,255,.45)),
-          url('user-bg.jpg'),
-          url('sfondo-mare.png');
-        background-size: 220% 220%, cover, cover;
-        background-position: center, center, center;
-        background-repeat: no-repeat, no-repeat, no-repeat;
-        background-attachment: scroll, fixed, fixed;
-        animation: gradientShift 14s ease-in-out infinite;
-      }
-      @keyframes gradientShift {
-        0% { background-position: 0% 50%, center, center; }
-        50% { background-position: 100% 50%, center, center; }
-        100% { background-position: 0% 50%, center, center; }
-      }
-
-      /* NAVBAR */
-      nav {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        display: flex;
-        justify-content: center;
-        gap: clamp(8px, 3vw, 28px);
-        padding: 14px clamp(12px, 4vw, 28px);
-        background: rgba(0,0,0,0.25);
-        backdrop-filter: blur(8px);
-        z-index: 1000;
-        border-bottom: 1px solid rgba(255,255,255,0.18);
-      }
-      nav a {
-        color: var(--text-on-bright);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: clamp(12px, 1.9vw, 14px);
-        letter-spacing: 0.5px;
-        transition: opacity .2s ease;
-      }
-      nav a:hover { opacity: 0.8; }
-
-      /* HERO */
-      .hero {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 84px 20px 40px; /* extra top padding for fixed nav */
-      }
-      .card {
-        width: min(980px, 94vw);
-        padding: clamp(28px, 6vw, 80px);
-        border-radius: 28px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        box-shadow: var(--shadow);
-        text-align: center;
-      }
-      .couple-name {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(36px, 8.5vw, 100px);
-        font-weight: 700;
-        margin: 0 0 20px;
-        text-shadow: 0 8px 26px rgba(0,0,0,0.35);
-        white-space: nowrap; /* tutto su una riga */
-      }
-      .subtitle {
-        font-size: clamp(14px, 2.6vw, 20px);
-        opacity: 0.95;
-        margin: 6px 0 20px;
-        text-shadow: 0 4px 14px rgba(0,0,0,0.35);
-      }
-
-      /* CTA buttons */
-      .cta-group {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-top: 20px;
-      }
-      .cta {
-        display: inline-block;
-        padding: 14px 24px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.5);
-        color: var(--text-on-bright);
-        text-decoration: none;
-        font-weight: 600;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease;
-        background: rgba(255,255,255,0.08);
-      }
-      .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(0,0,0,0.35); }
-
-      /* SECTIONS */
-      section.section {
-        width: min(1100px, 92vw);
-        margin: 40px auto;
-        padding: clamp(20px, 4vw, 40px);
-        border-radius: 24px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        backdrop-filter: blur(8px);
-        box-shadow: var(--shadow);
-        color: #f7f9ff;
-      }
-      .section h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(26px, 4.2vw, 42px);
-        margin: 0 0 12px;
-      }
-      .section p { line-height: 1.6; margin: 0.25rem 0 0.75rem; }
-      .muted { opacity: .9; }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      @media (min-width: 780px) {
-        .grid-2 { grid-template-columns: 1fr 1fr; }
-      }
-
-      .card-mini {
-        padding: 16px;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.25);
-        background: rgba(0,0,0,0.15);
-      }
-      .card-mini h3 {
-        margin: 0 0 8px;
-        font-size: clamp(18px, 3vw, 22px);
-        font-family: 'Playfair Display', serif;
-      }
-      .link { color: #fff; font-weight: 600; text-decoration: underline; }
-
-      /* FOOTER */
-      footer {
-        position: sticky;
-        bottom: 0;
-        width: 100%;
-        display: grid;
-        place-items: center;
-        padding: 10px;
-        font-size: 12px;
-        opacity: 0.9;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Elpidio & Cecilia — Wedding</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('user-bg.jpg') center/cover no-repeat,
+                  url('user-bg.jpg.JPG') center/cover no-repeat,
+                  url('sfondo-mare.png') center/cover no-repeat;
+      background-attachment: fixed;
+    }
+    /* NAVBAR */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(6px);
+    }
+    .brand {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .navlinks {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .navlinks a {
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .navlinks a:hover {
+      background: rgba(14,165,233,0.15);
+    }
+    /* HERO */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(255,255,255,0.5);
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin: 0;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-top: 10px;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="brand">Elpidio & Cecilia</div>
+    <div class="navlinks">
       <a href="#cerimonia">Cerimonia</a>
       <a href="#ricevimento">Ricevimento</a>
+      <a href="#timeline">Timeline</a>
       <a href="#rsvp">RSVP</a>
       <a href="#mappa">Mappa</a>
-      <a href="#lista-nozze">Lista nozze</a>
-    </nav>
+      <a href="#lista">Lista nozze</a>
+      <a href="#storia">La nostra storia</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+  </nav>
 
-    <!-- HERO -->
-    <header class="hero">
-      <section class="card" aria-label="Titolo del matrimonio">
-        <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
-        <p class="subtitle">Sito in costruzione — foto e dettagli in arrivo</p>
-        <div class="cta-group">
-          <a class="cta" href="#storia">La nostra storia</a>
-          <a class="cta" href="#gallery">Gallery</a>
-          <a class="cta" href="#contatti">Contatti</a>
-        </div>
-      </section>
-    </header>
-
-    <!-- SEZIONI -->
-    <section id="cerimonia" class="section">
-      <h2>Cerimonia</h2>
-      <p class="muted">Data e ora: <strong>—</strong></p>
-      <p>Luogo: <strong>—</strong></p>
-      <p>Note per gli invitati (es. arrivo, parcheggi, dress code): <em>in aggiornamento</em>.</p>
-    </section>
-
-    <section id="ricevimento" class="section">
-      <h2>Ricevimento</h2>
-      <p class="muted">Orario di inizio: <strong>—</strong></p>
-      <p>Location: <strong>—</strong></p>
-      <p>Programma indicativo: <em>in aggiornamento</em>.</p>
-    </section>
-
-    <section id="rsvp" class="section">
-      <h2>RSVP — Conferma la presenza</h2>
-      <p>Per confermare la tua presenza compila il modulo: <a class="link" href="#" aria-label="Apri modulo RSVP">Link al modulo (in arrivo)</a>.</p>
-      <p>In alternativa puoi scriverci: <a class="link" href="mailto:elpidiocecilia@example.com?subject=RSVP%20Matrimonio">elpidiocecilia@example.com</a></p>
-    </section>
-
-    <section id="mappa" class="section">
-      <h2>Mappa / Come arrivare</h2>
-      <div class="grid-2">
-        <div class="card-mini">
-          <h3>Chiesa</h3>
-          <p>Indirizzo: <strong>—</strong></p>
-          <p><a class="link" href="#" target="_blank" rel="noopener">Apri in Google Maps</a></p>
-          <p class="muted">Parcheggio/indicazioni: <em>in aggiornamento</em></p>
-        </div>
-        <div class="card-mini">
-          <h3>Villa / Ricevimento</h3>
-          <p>Indirizzo: <strong>—</strong></p>
-          <p><a class="link" href="#" target="_blank" rel="noopener">Apri in Google Maps</a></p>
-          <p class="muted">Parcheggio/indicazioni: <em>in aggiornamento</em></p>
-        </div>
-      </div>
-    </section>
-
-    <section id="lista-nozze" class="section">
-      <h2>Lista nozze / Regali</h2>
-      <p>Preferenze o link alla lista nozze: <em>in aggiornamento</em>.</p>
-      <p>IBAN (se previsto): <em>in aggiornamento</em>.</p>
-    </section>
-
-    <section id="storia" class="section">
-      <h2>La nostra storia</h2>
-      <p>Un breve racconto (testo e foto) del nostro percorso insieme: <em>in aggiornamento</em>.</p>
-    </section>
-
-    <section id="gallery" class="section">
-      <h2>Gallery</h2>
-      <p>Inseriremo qui alcune foto prima dell’evento. (Caricale nella cartella <code>img/</code> e inserisci i tag <code>&lt;img&gt;</code>.)</p>
-    </section>
-
-    <section id="contatti" class="section">
-      <h2>Contatti</h2>
-      <p>Per qualsiasi informazione: <a class="link" href="mailto:elpidiocecilia@example.com">elpidiocecilia@example.com</a> — Tel. <strong>—</strong></p>
-    </section>
-
-    <footer>
-      © <span id="year"></span> Elpidio &amp; Cecilia
-    </footer>
-
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </body>
+  <!-- HERO -->
+  <header class="hero">
+    <div>
+      <h1>Elpidio & Cecilia</h1>
+      <p>Ci sposiamo sul mare — dettagli in arrivo ✨</p>
+    </div>
+  </header>
+</body>
 </html>
