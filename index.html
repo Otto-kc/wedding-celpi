@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Elpidio & Cecilia — Wedding</title>
     <meta name="description" content="Sito del matrimonio di Elpidio & Cecilia" />
+    <!-- Richiesta: non indicizzare -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow, noimageindex, noarchive" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -23,21 +26,30 @@
       html { scroll-behavior: smooth; }
       html, body { height: 100%; margin: 0; }
 
-      /* Background: ocean image + animated electric-blue / coral overlay */
+      /* BACKGROUND LAYERS
+         1) Gradiente animato (tinta blu/corallo semitrasparente per leggibilità)
+         2) user-bg.jpg  (foto che caricherai tu)
+         3) sfondo-mare.png (immagine blu/corallo che avevamo scelto)
+         Puoi sostituire 'user-bg.jpg' con il nome reale del tuo file, oppure caricare un'immagine
+         con quel nome nella root del repository per non toccare il codice.
+      */
       body {
         color: var(--text-on-bright);
         font-family: 'Montserrat', system-ui, sans-serif;
-        background-image: linear-gradient(120deg, rgba(0,119,255,.40), rgba(255,62,108,.38), rgba(0,119,255,.40)), url('sfondo-mare.png');
-        background-size: 220% 220%, cover;
-        background-position: center, center;
-        background-repeat: no-repeat, no-repeat;
-        background-attachment: scroll, fixed;
+        background-image:
+          linear-gradient(120deg, rgba(0,119,255,.45), rgba(255,62,108,.40), rgba(0,119,255,.45)),
+          url('user-bg.jpg'),
+          url('sfondo-mare.png');
+        background-size: 220% 220%, cover, cover;
+        background-position: center, center, center;
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-attachment: scroll, fixed, fixed;
         animation: gradientShift 14s ease-in-out infinite;
       }
       @keyframes gradientShift {
-        0% { background-position: 0% 50%, center; }
-        50% { background-position: 100% 50%, center; }
-        100% { background-position: 0% 50%, center; }
+        0% { background-position: 0% 50%, center, center; }
+        50% { background-position: 100% 50%, center, center; }
+        100% { background-position: 0% 50%, center, center; }
       }
 
       /* NAVBAR */
@@ -195,7 +207,7 @@
       </section>
     </header>
 
-    <!-- SECTIONS -->
+    <!-- SEZIONI -->
     <section id="cerimonia" class="section">
       <h2>Cerimonia</h2>
       <p class="muted">Data e ora: <strong>—</strong></p>
