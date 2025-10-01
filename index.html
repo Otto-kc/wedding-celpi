@@ -1,278 +1,301 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Elpidio & Cecilia — Wedding</title>
-    <meta name="description" content="Sito del matrimonio di Elpidio & Cecilia" />
-    <!-- Richiesta: non indicizzare -->
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="googlebot" content="noindex, nofollow, noimageindex, noarchive" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- SEO privacy: avoid indexing while site is in progress -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Elpidio &amp; Cecilia — Wedding</title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Favicon SVG gradient (no extra file needed) -->
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%2300AEEF"/><stop offset="100%" stop-color="%23FF6F61"/></linearGradient></defs><rect width="64" height="64" rx="12" fill="url(%23g)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-size="28" fill="white">E&amp;C</text></svg>' />
 
-    <style>
-      :root {
-        --electric-blue: #0077ff;
-        --neon-coral: #ff3e6c;
-        --text-on-bright: #ffffff;
-        --border: rgba(255, 255, 255, 0.35);
-        --card-bg: rgba(255, 255, 255, 0.10);
-        --shadow: 0 20px 60px rgba(0,0,0,0.35);
-      }
+  <style>
+    :root{
+      --blue:#0ea5e9;            /* base blu (puoi intensificare qui) */
+      --blue-deep:#0284c7;       /* blu più intenso */
+      --coral:#ff6f61;           /* corallo */
+      --ink:#0f172a;             /* testo scuro */
+      --ink-soft:#334155;        /* testo secondario */
+      --bg-overlay:rgba(5,25,45,0.35); /* overlay hero */
+      --card:rgba(255,255,255,0.85);    /* riquadri glassy */
+      --glass:backdrop-filter: blur(6px); /* supporto blur */
+    }
 
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      html, body { height: 100%; margin: 0; }
+    /* Reset piccolo */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink); font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.5;
+      background:
+        /* gradiente di base */
+        linear-gradient(135deg, rgba(14,165,233,.35), rgba(255,111,97,.35)),
+        /* immagini in fallback multiplo (basta che una esista) */
+        url('user-bg.jpg') center/cover no-repeat,
+        url('user-bg.jpg.JPG') center/cover no-repeat,
+        url('sfondo-mare.png') center/cover no-repeat;
+      background-attachment: scroll; /* mobile-friendly, niente scatti */
+    }
+    @media (min-width: 900px){
+      /* su desktop possiamo riattivare il parallax leggero se vuoi */
+      body{ background-attachment: fixed, fixed, fixed, fixed; }
+    }
 
-      /* BACKGROUND LAYERS
-         1) Gradiente animato (tinta blu/corallo semitrasparente per leggibilità)
-         2) user-bg.JPG  (foto che caricherai tu)
-         3) sfondo-mare.png (immagine blu/corallo che avevamo scelto)
-         Puoi sostituire 'user-bg.JPG' con il nome reale del tuo file, oppure caricare un'immagine
-         con quel nome nella root del repository per non toccare il codice.
-      */
-      body {
-        color: var(--text-on-bright);
-        font-family: 'Montserrat', system-ui, sans-serif;
-        background-image:
-          linear-gradient(120deg, rgba(0,119,255,.45), rgba(255,62,108,.40), rgba(0,119,255,.45)),
-          url('user-bg.JPG'),
-          url('sfondo-mare.png');
-        background-size: 220% 220%, cover, cover;
-        background-position: center, center, center;
-        background-repeat: no-repeat, no-repeat, no-repeat;
-        background-attachment: scroll, fixed, fixed;
-        animation: gradientShift 14s ease-in-out infinite;
-      }
-      @keyframes gradientShift {
-        0% { background-position: 0% 50%, center, center; }
-        50% { background-position: 100% 50%, center, center; }
-        100% { background-position: 0% 50%, center, center; }
-      }
+    a{color:var(--blue-deep); text-decoration:none}
+    a:hover{ text-decoration:underline }
 
-      /* NAVBAR */
-      nav {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        display: flex;
-        justify-content: center;
-        gap: clamp(8px, 3vw, 28px);
-        padding: 14px clamp(12px, 4vw, 28px);
-        background: rgba(0,0,0,0.25);
-        backdrop-filter: blur(8px);
-        z-index: 1000;
-        border-bottom: 1px solid rgba(255,255,255,0.18);
-      }
-      nav a {
-        color: var(--text-on-bright);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: clamp(12px, 1.9vw, 14px);
-        letter-spacing: 0.5px;
-        transition: opacity .2s ease;
-      }
-      nav a:hover { opacity: 0.8; }
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 20px; background:rgba(255,255,255,.72);
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(2,132,199,.12);
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center; font-weight:700;
+      letter-spacing:.4px; color:var(--ink);
+    }
+    .monogram{
+      width:36px; height:36px; border-radius:12px;
+      background:linear-gradient(135deg, var(--blue), var(--coral));
+      display:grid; place-items:center; color:#fff; font-family:Georgia,serif; font-size:18px;
+      box-shadow:0 8px 20px rgba(2,132,199,.25);
+    }
+    .navlinks{ display:flex; gap:14px; flex-wrap:wrap; }
+    .navlinks a{ padding:8px 10px; border-radius:10px; font-weight:600; color:var(--ink-soft)}
+    .navlinks a:hover{ background:rgba(2,132,199,.1); color:var(--ink)}
 
-      /* HERO */
-      .hero {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 84px 20px 40px; /* extra top padding for fixed nav */
-      }
-      .card {
-        width: min(980px, 94vw);
-        padding: clamp(28px, 6vw, 80px);
-        border-radius: 28px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        box-shadow: var(--shadow);
-        text-align: center;
-      }
-      .couple-name {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(36px, 8.5vw, 100px);
-        font-weight: 700;
-        margin: 0 0 20px;
-        text-shadow: 0 8px 26px rgba(0,0,0,0.35);
-        white-space: nowrap; /* tutto su una riga */
-      }
-      .subtitle {
-        font-size: clamp(14px, 2.6vw, 20px);
-        opacity: 0.95;
-        margin: 6px 0 20px;
-        text-shadow: 0 4px 14px rgba(0,0,0,0.35);
-      }
+    /* HERO */
+    .hero{
+      position:relative; min-height: 90svh; display:grid; place-items:center;
+      padding: 64px 20px 32px; text-align:center; isolation:isolate;
+    }
+    .hero::before{ /* overlay elegante */
+      content:""; position:absolute; inset:0; background:var(--bg-overlay);
+      z-index:-1;
+    }
+    .card{
+      max-width: 860px; width:min(92vw, 860px);
+      background:var(--card); border:1px solid rgba(2,132,199,.12);
+      border-radius:22px; padding:28px; box-shadow:0 30px 80px rgba(2,132,199,.25);
+      transform:translateY(14px); opacity:0; animation:fadeUp .9s ease-out .1s forwards;
+    }
+    @keyframes fadeUp{ to{ transform:translateY(0); opacity:1 } }
 
-      /* CTA buttons */
-      .cta-group {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-top: 20px;
-      }
-      .cta {
-        display: inline-block;
-        padding: 14px 24px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.5);
-        color: var(--text-on-bright);
-        text-decoration: none;
-        font-weight: 600;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-        transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease;
-        background: rgba(255,255,255,0.08);
-      }
-      .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(0,0,0,0.35); }
+    .title{ font-size: clamp(32px, 5vw, 56px); margin: 0 0 8px; font-weight:800; color:#0b1220 }
+    .subtitle{ font-size: clamp(16px, 2.4vw, 22px); color:var(--ink-soft); margin:0 0 18px }
 
-      /* SECTIONS */
-      section.section {
-        width: min(1100px, 92vw);
-        margin: 40px auto;
-        padding: clamp(20px, 4vw, 40px);
-        border-radius: 24px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        backdrop-filter: blur(8px);
-        box-shadow: var(--shadow);
-        color: #f7f9ff;
-      }
-      .section h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(26px, 4.2vw, 42px);
-        margin: 0 0 12px;
-      }
-      .section p { line-height: 1.6; margin: 0.25rem 0 0.75rem; }
-      .muted { opacity: .9; }
+    /* CTA con micro-glow "neon" */
+    .cta{
+      display:inline-block; margin:6px; padding:12px 18px; border-radius:14px;
+      font-weight:700; letter-spacing:.3px; color:white; background:linear-gradient(135deg,var(--blue),var(--coral));
+      box-shadow:0 10px 24px rgba(2,132,199,.35), inset 0 0 0 1px rgba(255,255,255,.35);
+      transition:transform .15s ease, box-shadow .15s ease, filter .2s ease;
+    }
+    .cta:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(2,132,199,.45), 0 0 18px rgba(255,111,97,.35) }
 
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      @media (min-width: 780px) {
-        .grid-2 { grid-template-columns: 1fr 1fr; }
-      }
+    /* Wave divider */
+    .wave{ display:block; width:100%; height:auto; margin-top:28px }
 
-      .card-mini {
-        padding: 16px;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.25);
-        background: rgba(0,0,0,0.15);
-      }
-      .card-mini h3 {
-        margin: 0 0 8px;
-        font-size: clamp(18px, 3vw, 22px);
-        font-family: 'Playfair Display', serif;
-      }
-      .link { color: #fff; font-weight: 600; text-decoration: underline; }
+    /* SECTION generic */
+    section{ padding:64px 20px }
+    .container{ max-width:1100px; margin:0 auto }
+    .h2{ font-size: clamp(24px, 4vw, 36px); margin:0 0 18px; font-weight:800; color:#0b1220 }
+    .p{ color:var(--ink-soft); font-size:clamp(15px, 1.9vw, 18px) }
+    .grid{ display:grid; gap:22px }
+    @media(min-width: 900px){ .grid.cols-2{ grid-template-columns: 1fr 1fr } }
 
-      /* FOOTER */
-      footer {
-        position: sticky;
-        bottom: 0;
-        width: 100%;
-        display: grid;
-        place-items: center;
-        padding: 10px;
-        font-size: 12px;
-        opacity: 0.9;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav>
+    /* Timeline */
+    .timeline{ position:relative; padding-left:20px }
+    .timeline::before{ content:""; position:absolute; left:8px; top:4px; bottom:4px; width:2px; background:linear-gradient(var(--blue), var(--coral)); border-radius:2px }
+    .t-item{ position:relative; padding:12px 12px 12px 22px; background:#fff; border:1px solid rgba(2,132,199,.12); border-radius:16px; box-shadow:0 10px 24px rgba(2,132,199,.08) }
+    .t-item::before{ content:""; position:absolute; left:-6px; top:18px; width:12px; height:12px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 4px rgba(14,165,233,.18) }
+    .t-time{ font-weight:800; color:var(--blue-deep) }
+
+    /* Cards generiche */
+    .card2{ background:#fff; border:1px solid rgba(2,132,199,.12); border-radius:18px; padding:18px; box-shadow:0 10px 24px rgba(2,132,199,.08) }
+
+    /* Gallery */
+    .gallery{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:12px }
+    .gallery img{ width:100%; height:240px; object-fit:cover; border-radius:16px; border:1px solid rgba(2,132,199,.12); box-shadow:0 10px 24px rgba(2,132,199,.08) }
+
+    /* Footer */
+    footer{ padding:46px 20px 90px; text-align:center; color:var(--ink-soft) }
+
+    /* Smooth anchor scroll */
+    html{ scroll-behavior:smooth }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="brand">
+      <div class="monogram" aria-hidden="true">E&amp;C</div>
+      <span>Elpidio &amp; Cecilia</span>
+    </div>
+    <div class="navlinks">
       <a href="#cerimonia">Cerimonia</a>
       <a href="#ricevimento">Ricevimento</a>
+      <a href="#timeline">Timeline</a>
       <a href="#rsvp">RSVP</a>
       <a href="#mappa">Mappa</a>
-      <a href="#lista-nozze">Lista nozze</a>
-    </nav>
+      <a href="#lista">Lista nozze</a>
+    </div>
+  </nav>
 
-    <!-- HERO -->
-    <header class="hero">
-      <section class="card" aria-label="Titolo del matrimonio">
-        <h1 class="couple-name">Elpidio&nbsp;&amp;&nbsp;Cecilia</h1>
-        <p class="subtitle">Sito in costruzione — foto e dettagli in arrivo</p>
-        <div class="cta-group">
-          <a class="cta" href="#storia">La nostra storia</a>
-          <a class="cta" href="#gallery">Gallery</a>
-          <a class="cta" href="#contatti">Contatti</a>
+  <!-- HERO -->
+  <header class="hero" role="img" aria-label="Tema mare con sfumature blu e corallo">
+    <div class="card">
+      <h1 class="title">Elpidio &amp; Cecilia</h1>
+      <p class="subtitle">Ci sposiamo sul mare — <strong>Data</strong> e <strong>luoghi</strong> in arrivo ✨</p>
+      <div>
+        <a class="cta" href="#storia">La nostra storia</a>
+        <a class="cta" href="#gallery">Gallery</a>
+        <a class="cta" href="#contatti">Contatti</a>
+      </div>
+      <!-- Wave divider svg -->
+      <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,64 C240,128 480,0 720,32 C960,64 1200,160 1440,96 L1440,120 L0,120 Z" fill="white" fill-opacity="0.9"></path>
+      </svg>
+    </div>
+  </header>
+
+  <!-- STORIA -->
+  <section id="storia">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="h2">La nostra storia</h2>
+        <p class="p">Scrivi qui un breve racconto: come vi siete conosciuti, qualche aneddoto e il perché del tema mare. Posso aiutarti a redigerlo in stile elegante e conciso. ✍️</p>
+      </div>
+      <div class="card2">
+        <p class="p"><strong>Dettagli rapidi</strong></p>
+        <ul class="p">
+          <li>Data: <em>gg mese 2026</em></li>
+          <li>Chiesa: <em>Nome chiesa, città</em></li>
+          <li>Ricevimento: <em>Nome villa/castello, città</em></li>
+          <li>Dress code: <em>elegante</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline" style="background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,1));">
+    <div class="container">
+      <h2 class="h2">Timeline della giornata</h2>
+      <div class="grid cols-2">
+        <div class="timeline">
+          <div class="t-item"><div class="t-time">15:30</div><div>Cerimonia in chiesa</div></div>
+          <div class="t-item"><div class="t-time">17:00</div><div>Foto e brindisi vista mare</div></div>
+          <div class="t-item"><div class="t-time">19:30</div><div>Cena e taglio torta</div></div>
+          <div class="t-item"><div class="t-time">22:30</div><div>Party &amp; DJ set</div></div>
         </div>
-      </section>
-    </header>
-
-    <!-- SEZIONI -->
-    <section id="cerimonia" class="section">
-      <h2>Cerimonia</h2>
-      <p class="muted">Data e ora: <strong>—</strong></p>
-      <p>Luogo: <strong>—</strong></p>
-      <p>Note per gli invitati (es. arrivo, parcheggi, dress code): <em>in aggiornamento</em>.</p>
-    </section>
-
-    <section id="ricevimento" class="section">
-      <h2>Ricevimento</h2>
-      <p class="muted">Orario di inizio: <strong>—</strong></p>
-      <p>Location: <strong>—</strong></p>
-      <p>Programma indicativo: <em>in aggiornamento</em>.</p>
-    </section>
-
-    <section id="rsvp" class="section">
-      <h2>RSVP — Conferma la presenza</h2>
-      <p>Per confermare la tua presenza compila il modulo: <a class="link" href="#" aria-label="Apri modulo RSVP">Link al modulo (in arrivo)</a>.</p>
-      <p>In alternativa puoi scriverci: <a class="link" href="mailto:elpidiocecilia@example.com?subject=RSVP%20Matrimonio">elpidiocecilia@example.com</a></p>
-    </section>
-
-    <section id="mappa" class="section">
-      <h2>Mappa / Come arrivare</h2>
-      <div class="grid-2">
-        <div class="card-mini">
-          <h3>Chiesa</h3>
-          <p>Indirizzo: <strong>—</strong></p>
-          <p><a class="link" href="#" target="_blank" rel="noopener">Apri in Google Maps</a></p>
-          <p class="muted">Parcheggio/indicazioni: <em>in aggiornamento</em></p>
-        </div>
-        <div class="card-mini">
-          <h3>Villa / Ricevimento</h3>
-          <p>Indirizzo: <strong>—</strong></p>
-          <p><a class="link" href="#" target="_blank" rel="noopener">Apri in Google Maps</a></p>
-          <p class="muted">Parcheggio/indicazioni: <em>in aggiornamento</em></p>
+        <div class="card2">
+          <p class="p"><strong>Note utili</strong></p>
+          <ul class="p">
+            <li>Parcheggio interno disponibile</li>
+            <li>Navetta su richiesta</li>
+            <li>Segnalare intolleranze nel form RSVP</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="lista-nozze" class="section">
-      <h2>Lista nozze / Regali</h2>
-      <p>Preferenze o link alla lista nozze: <em>in aggiornamento</em>.</p>
-      <p>IBAN (se previsto): <em>in aggiornamento</em>.</p>
-    </section>
+  <!-- CERIMONIA / RICEVIMENTO -->
+  <section id="cerimonia">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="h2">Cerimonia</h2>
+        <p class="p">Chiesa di <em>Nome</em> — <em>Indirizzo</em>. Inserire qui una breve descrizione (storia, perché l’avete scelta).</p>
+      </div>
+      <div class="card2">
+        <iframe title="Mappa chiesa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996!2d14.2681!3d40.8518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUxJzYuNSJOIDE0wrAxNicwNS4xIkU!5e0!3m2!1sit!2sit!4v0000000000000" width="100%" height="280" style="border:0; border-radius:16px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p class="p" style="margin-top:8px">Sostituisci l’embed con l’indirizzo reale della chiesa.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="storia" class="section">
-      <h2>La nostra storia</h2>
-      <p>Un breve racconto (testo e foto) del nostro percorso insieme: <em>in aggiornamento</em>.</p>
-    </section>
+  <section id="ricevimento" style="background:#f8fafc">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="h2">Ricevimento</h2>
+        <p class="p">Villa/Castello <em>Nome</em> — <em>Indirizzo</em>. Breve testo sulla location (vista mare, giardino, accesso spiaggia, camere disponibili…).</p>
+      </div>
+      <div class="card2">
+        <iframe title="Mappa villa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996!2d14.2681!3d40.8518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUxJzYuNSJOIDE0wrAxNicwNS4xIkU!5e0!3m2!1sit!2sit!4v0000000000000" width="100%" height="280" style="border:0; border-radius:16px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <p class="p" style="margin-top:8px">Sostituisci l’embed con l’indirizzo reale della villa.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="gallery" class="section">
-      <h2>Gallery</h2>
-      <p>Inseriremo qui alcune foto prima dell’evento. (Caricale nella cartella <code>img/</code> e inserisci i tag <code>&lt;img&gt;</code>.)</p>
-    </section>
+  <!-- RSVP -->
+  <section id="rsvp">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="h2">RSVP</h2>
+        <p class="p">Conferma la tua presenza e segnalaci eventuali esigenze alimentari. Il modulo è ottimizzato per telefoni.</p>
+      </div>
+      <div class="card2">
+        <!-- Sostituisci l'URL di example con il tuo Google Form / Airtable embed -->
+        <iframe title="RSVP form" src="https://docs.google.com/forms/d/e/1FAIpQLSd-example/viewform?embedded=true" width="100%" height="540" frameborder="0" marginheight="0" marginwidth="0" loading="lazy">Caricamento…</iframe>
+        <p class="p" style="margin-top:8px">Non hai ancora il modulo? Mandami il link e lo integro con lo stile del sito.</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="contatti" class="section">
-      <h2>Contatti</h2>
-      <p>Per qualsiasi informazione: <a class="link" href="mailto:elpidiocecilia@example.com">elpidiocecilia@example.com</a> — Tel. <strong>—</strong></p>
-    </section>
+  <!-- LISTA NOZZE / IBAN -->
+  <section id="lista" style="background:#f8fafc">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="h2">Lista nozze</h2>
+        <p class="p">Qui puoi inserire link a lista nozze/IBAN (se preferisci, posso renderlo con pulsanti eleganti e testo discreto).</p>
+      </div>
+      <div class="card2">
+        <a class="cta" href="#" onclick="alert('Inserisci qui il link alla tua lista nozze')">Vai alla lista nozze</a>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-      © <span id="year"></span> Elpidio &amp; Cecilia
-    </footer>
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <h2 class="h2">Gallery</h2>
+      <p class="p">Carica in /images le tue foto leggere (sotto 300–400 KB). Le immagini qui sotto sono segnaposto.</p>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Mare al tramonto" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" alt="Onde e riflessi" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop" alt="Luci sul mare" loading="lazy" />
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" alt="Spiaggia" loading="lazy" />
+      </div>
+    </div>
+  </section>
 
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </body>
+  <!-- CONTATTI -->
+  <section id="contatti" style="background:#f8fafc">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="h2">Contatti</h2>
+        <p class="p">Per domande logistiche o suggerimenti musicali 😊</p>
+      </div>
+      <div class="card2">
+        <p class="p"><strong>Email</strong>: <a href="mailto:elpi-ceci@example.com">elpi-ceci@example.com</a><br>
+        <strong>Telefono</strong>: <a href="tel:+39000000000">+39 000 000 0000</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Elpidio &amp; Cecilia • Con amore, vista mare.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Anno automatico
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
