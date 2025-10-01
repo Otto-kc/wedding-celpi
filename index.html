@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Elpidio & Cecilia — Wedding</title>
     <meta name="description" content="Sito del matrimonio di Elpidio & Cecilia" />
-    <meta property="og:title" content="Elpidio & Cecilia — Wedding" />
-    <meta property="og:description" content="Sito del matrimonio di Elpidio & Cecilia" />
-    <meta property="og:type" content="website" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -17,10 +14,14 @@
         --electric-blue: #0077ff;
         --neon-coral: #ff3e6c;
         --text-on-bright: #ffffff;
-        --text-shadow: rgba(0, 0, 0, 0.35);
+        --ink: #0f1220;
+        --card-bg: rgba(255, 255, 255, 0.10);
+        --border: rgba(255, 255, 255, 0.35);
+        --shadow: 0 20px 60px rgba(0,0,0,0.35);
       }
 
       * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       html, body { height: 100%; margin: 0; }
       body {
         color: var(--text-on-bright);
@@ -29,65 +30,225 @@
         background-size: 220% 220%;
         animation: gradientShift 14s ease-in-out infinite;
       }
-
       @keyframes gradientShift {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
       }
 
+      /* NAVBAR */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        display: flex;
+        justify-content: center;
+        gap: clamp(8px, 3vw, 28px);
+        padding: 14px clamp(12px, 4vw, 28px);
+        background: rgba(0,0,0,0.25);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        border-bottom: 1px solid rgba(255,255,255,0.18);
+      }
+      nav a {
+        color: var(--text-on-bright);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: clamp(12px, 1.9vw, 14px);
+        letter-spacing: 0.5px;
+        transition: opacity .2s ease;
+      }
+      nav a:hover { opacity: 0.7; }
+
+      /* HERO */
       .hero {
         min-height: 100vh;
         display: grid;
         place-items: center;
-        padding: 40px;
+        padding: 84px 20px 40px; /* extra top padding to account for fixed nav */
       }
-
       .card {
-        width: min(920px, 94vw);
-        padding: 40px;
+        width: min(980px, 94vw);
+        padding: clamp(28px, 6vw, 80px);
         border-radius: 28px;
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        background: rgba(255, 255, 255, 0.10);
+        border: 1px solid var(--border);
+        background: var(--card-bg);
         backdrop-filter: blur(10px);
-        box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        box-shadow: var(--shadow);
         text-align: center;
       }
-
       .couple-name {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(40px, 8vw, 108px);
+        font-size: clamp(44px, 9vw, 112px);
         font-weight: 700;
-        margin: 0 0 10px;
-        text-shadow: 0 8px 26px var(--text-shadow);
+        margin: 0 0 20px;
+        text-shadow: 0 8px 26px rgba(0,0,0,0.35);
       }
-
       .subtitle {
         font-size: clamp(14px, 2.6vw, 20px);
         opacity: 0.95;
-        margin: 6px 0 0;
-        text-shadow: 0 4px 14px var(--text-shadow);
+        margin: 6px 0 20px;
+        text-shadow: 0 4px 14px rgba(0,0,0,0.35);
       }
 
-      footer {
-        position: fixed;
-        bottom: 14px; left: 50%; transform: translateX(-50%);
-        font-size: 12px; opacity: 0.85;
-        text-shadow: 0 2px 10px var(--text-shadow);
-        padding: 6px 10px;
+      /* CTA buttons */
+      .cta-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .cta {
+        display: inline-block;
+        padding: 14px 24px;
         border-radius: 999px;
-        background: rgba(0,0,0,0.12);
+        border: 1px solid rgba(255,255,255,0.5);
+        color: var(--text-on-bright);
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease;
+        background: rgba(255,255,255,0.08);
+      }
+      .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(0,0,0,0.35); }
+
+      /* SECTIONS */
+      section.section {
+        width: min(1100px, 92vw);
+        margin: 40px auto;
+        padding: clamp(20px, 4vw, 40px);
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        backdrop-filter: blur(8px);
+        box-shadow: var(--shadow);
+        color: #f7f9ff;
+      }
+      .section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(26px, 4.2vw, 42px);
+        margin: 0 0 12px;
+      }
+      .section p { line-height: 1.6; margin: 0.25rem 0 0.75rem; }
+      .muted { opacity: .9; }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 780px) {
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+      }
+
+      .card-mini {
+        padding: 16px;
+        border-radius: 18px;
         border: 1px solid rgba(255,255,255,0.25);
+        background: rgba(0,0,0,0.15);
+      }
+      .card-mini h3 {
+        margin: 0 0 8px;
+        font-size: clamp(18px, 3vw, 22px);
+        font-family: 'Playfair Display', serif;
+      }
+      .link { color: #fff; font-weight: 600; text-decoration: underline; }
+
+      /* FOOTER */
+      footer {
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        display: grid;
+        place-items: center;
+        padding: 10px;
+        font-size: 12px;
+        opacity: 0.9;
       }
     </style>
   </head>
   <body>
-    <main class="hero" role="main">
-      <section class="card">
+    <!-- NAVBAR -->
+    <nav>
+      <a href="#cerimonia">Cerimonia</a>
+      <a href="#ricevimento">Ricevimento</a>
+      <a href="#rsvp">RSVP</a>
+      <a href="#mappa">Mappa</a>
+      <a href="#lista-nozze">Lista nozze</a>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <section class="card" aria-label="Titolo del matrimonio">
         <h1 class="couple-name">Elpidio &amp; Cecilia</h1>
         <p class="subtitle">Sito in costruzione — foto e dettagli in arrivo</p>
+        <div class="cta-group">
+          <a class="cta" href="#storia">La nostra storia</a>
+          <a class="cta" href="#gallery">Gallery</a>
+          <a class="cta" href="#contatti">Contatti</a>
+        </div>
       </section>
-    </main>
+    </header>
+
+    <!-- SECTIONS -->
+    <section id="cerimonia" class="section">
+      <h2>Cerimonia</h2>
+      <p class="muted">Data e ora: <strong>—</strong></p>
+      <p>Luogo: <strong>—</strong></p>
+      <p>Note per gli invitati (es. arrivo, parcheggi, dress code): <em>in aggiornamento</em>.</p>
+    </section>
+
+    <section id="ricevimento" class="section">
+      <h2>Ricevimento</h2>
+      <p class="muted">Orario di inizio: <strong>—</strong></p>
+      <p>Location: <strong>—</strong></p>
+      <p>Programma indicativo: <em>in aggiornamento</em>.</p>
+    </section>
+
+    <section id="rsvp" class="section">
+      <h2>RSVP — Conferma la presenza</h2>
+      <p>Per confermare la tua presenza compila il modulo: <a class="link" href="#" aria-label="Apri modulo RSVP">Link al modulo (in arrivo)</a>.</p>
+      <p>In alternativa puoi scriverci: <a class="link" href="mailto:elpidiocecilia@example.com?subject=RSVP%20Matrimonio">elpidiocecilia@example.com</a></p>
+    </section>
+
+    <section id="mappa" class="section">
+      <h2>Mappa / Come arrivare</h2>
+      <div class="grid-2">
+        <div class="card-mini">
+          <h3>Chiesa</h3>
+          <p>Indirizzo: <strong>—</strong></p>
+          <p><a class="link" href="#" target="_blank" rel="noopener">Apri in Google Maps</a></p>
+          <p class="muted">Parcheggio/indicazioni: <em>in aggiornamento</em></p>
+        </div>
+        <div class="card-mini">
+          <h3>Villa / Ricevimento</h3>
+          <p>Indirizzo: <strong>—</strong></p>
+          <p><a class="link" href="#" target="_blank" rel="noopener">Apri in Google Maps</a></p>
+          <p class="muted">Parcheggio/indicazioni: <em>in aggiornamento</em></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="lista-nozze" class="section">
+      <h2>Lista nozze / Regali</h2>
+      <p>Preferenze o link alla lista nozze: <em>in aggiornamento</em>.</p>
+      <p>IBAN (se previsto): <em>in aggiornamento</em>.</p>
+    </section>
+
+    <section id="storia" class="section">
+      <h2>La nostra storia</h2>
+      <p>Un breve racconto (testo e foto) del nostro percorso insieme: <em>in aggiornamento</em>.</p>
+    </section>
+
+    <section id="gallery" class="section">
+      <h2>Gallery</h2>
+      <p>Inseriremo qui alcune foto prima dell’evento. (Caricale nella cartella <code>img/</code> e inserisci i tag <code>&lt;img&gt;</code>.)</p>
+    </section>
+
+    <section id="contatti" class="section">
+      <h2>Contatti</h2>
+      <p>Per qualsiasi informazione: <a class="link" href="mailto:elpidiocecilia@example.com">elpidiocecilia@example.com</a> — Tel. <strong>—</strong></p>
+    </section>
 
     <footer>
       © <span id="year"></span> Elpidio &amp; Cecilia
