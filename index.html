@@ -6,29 +6,57 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Elpidio & Cecilia — Wedding</title>
   <style>
+    :root{
+      --nav-azure:#b3e5fc;   /* azzurro mare chiaro navbar */
+      --nav-text:#0c4a6e;    /* blu mare per testi/link */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url('user-bg.JPG') center/cover no-repeat,
-                  url('sfondo-mare.png') center/cover no-repeat;
-      background-attachment: fixed;
+      /* Multiple fallbacks: the first that exists will be used */
+      background:
+        url('user-bg.JPG') center/cover no-repeat,
+        url('user-bg.jpg') center/cover no-repeat,
+        url('user-bg.jpg.JPG') center/cover no-repeat,
+        url('sfondo-mare.png') center/cover no-repeat;
+      background-attachment: fixed, fixed, fixed, fixed;
+      overflow-x:hidden;
     }
+    /* Light fade at the very top (to mimic "parte più chiara" che degrada verso il contenuto) */
+    .top-fade{
+      position:fixed;
+      top:0; left:0; right:0;
+      height: 220px;           /* regola l'altezza della zona chiara */
+      pointer-events:none;
+      z-index: 1;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.85) 0%,
+        rgba(255,255,255,0.55) 40%,
+        rgba(255,255,255,0.25) 70%,
+        rgba(255,255,255,0.00) 100%);
+      /* leggero blur per ammorbidire l'immagine sottostante vicino alla navbar */
+      backdrop-filter: blur(1.5px);
+    }
+
     /* NAVBAR */
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 2; /* sopra la top-fade */
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 12px 20px;
-      background: #b3e5fc; /* azzurro mare chiaro */
-      border-bottom: 1px solid rgba(0,0,0,0.1);
+      background: var(--nav-azure); /* azzurro mare chiaro uniforme */
+      border-bottom: 1px solid rgba(0,0,0,0.08);
     }
     .brand {
-      font-weight: bold;
+      font-weight: 800;
       font-size: 20px;
-      color: #0c4a6e; /* blu mare più scuro per contrasto */
+      letter-spacing: .5px;
+      color: var(--nav-text);
     }
     .navlinks {
       display: flex;
@@ -37,15 +65,15 @@
     }
     .navlinks a {
       text-decoration: none;
-      color: #0c4a6e;
-      font-weight: 600;
+      color: var(--nav-text);
+      font-weight: 700;
       padding: 6px 10px;
       border-radius: 6px;
-      transition: background 0.2s;
+      transition: background 0.2s, transform .1s;
     }
-    .navlinks a:hover {
-      background: rgba(255,255,255,0.3);
-    }
+    .navlinks a:hover { background: rgba(255,255,255,0.35); }
+    .navlinks a:active{ transform: translateY(1px); }
+
     /* HERO */
     .hero {
       min-height: 85vh;
@@ -53,20 +81,26 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: rgba(255,255,255,0.5);
+      /* tolgo l'overlay bianco: l'immagine deve vedersi piena, solo la parte alta è schiarita dalla top-fade */
     }
     .hero h1 {
-      font-size: 48px;
+      font-size: clamp(40px, 6vw, 64px);
       margin: 0;
+      color: #0b1220;
+      text-shadow: 0 2px 10px rgba(255,255,255,0.6);
     }
     .hero p {
-      font-size: 20px;
-      margin-top: 10px;
-      color: #334155;
+      font-size: clamp(16px, 2.2vw, 20px);
+      margin-top: 12px;
+      color: #1f2937;
+      text-shadow: 0 1px 8px rgba(255,255,255,0.8);
     }
   </style>
 </head>
 <body>
+  <!-- overlay di schiarita in alto -->
+  <div class="top-fade" aria-hidden="true"></div>
+
   <!-- NAVBAR -->
   <nav>
     <div class="brand">E&amp;C</div>
@@ -86,7 +120,7 @@
   <!-- HERO -->
   <header class="hero">
     <div>
-      <h1>Elpidio & Cecilia</h1>
+      <h1>Elpidio &amp; Cecilia</h1>
       <p>Ci sposiamo sul mare — dettagli in arrivo ✨</p>
     </div>
   </header>
